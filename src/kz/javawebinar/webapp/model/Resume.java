@@ -5,5 +5,6 @@ package kz.javawebinar.webapp.model;
  * 11.05.2015
  */
 public class Resume {
-    String fullName;
+    private String fullName;
+    private String location;
 }
