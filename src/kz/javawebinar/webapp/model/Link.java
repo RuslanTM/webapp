@@ -23,6 +23,9 @@ public class Link {
         this.url = url;
     }
 
+    public String getUrl() {
+        return url;
+    }
 
     @Override
     public int hashCode() {
