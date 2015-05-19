@@ -5,6 +5,7 @@ package kz.javawebinar.webapp.model;
  * 13.05.2015
  */
 public class Section {
+    private SectionType type;
     private String name;
     private String Description;
 
