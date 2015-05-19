@@ -6,6 +6,7 @@ package kz.javawebinar.webapp.model;
  */
 public class Section {
     private SectionType type;
+    /*
     private String name;
     private String Description;
 
@@ -24,5 +25,5 @@ public class Section {
     public void setDescription(String description) {
         Description = description;
     }
-
+*/
 }
