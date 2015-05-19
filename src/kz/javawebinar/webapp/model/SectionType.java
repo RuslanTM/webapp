@@ -5,9 +5,18 @@ package kz.javawebinar.webapp.model;
  * 19.05.2015
  */
 public enum SectionType {
-    OBJECTIVE,
-    ACHIEVMENT,
-    QUALIFICATIONS,
-    EXPERIENCE,
-    EDUCATION
+    OBJECTIVE("Позиция"),
+    ACHIEVMENT("Достижения"),
+    QUALIFICATIONS("Квалификация"),
+    EXPERIENCE("Опыт работы"),
+    EDUCATION("ОБразование");
+    private String title;
+
+    SectionType(String title) {
+        this.title = title;
+    }
+
+    public String getTitle() {
+        return title;
+    }
 }
