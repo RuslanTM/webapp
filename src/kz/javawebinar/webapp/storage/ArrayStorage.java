@@ -8,6 +8,7 @@ import java.util.Collection;
  * Aser
  * 20.05.2015
  */
+
 public class ArrayStorage implements IStorage{
     private Resume[] array = new Resume[100];
 
