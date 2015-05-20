@@ -18,8 +18,8 @@ public class Main {
         Field f = Link.class.getDeclaredField("url");
         f.setAccessible(true);
         Link l = new Link("name", "url");
-
-
+        System.out.println(l.getClass().isInstance(Link.class));
+        System.out.println(l instanceof Link);
         System.out.println(f.get(l));
         System.out.println(l.getUrl());
     }
