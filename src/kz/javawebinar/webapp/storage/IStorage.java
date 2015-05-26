@@ -1,5 +1,6 @@
 package kz.javawebinar.webapp.storage;
 
+import kz.javawebinar.webapp.WebAppException;
 import kz.javawebinar.webapp.model.Resume;
 
 import java.util.Collection;
@@ -11,7 +12,7 @@ import java.util.Collection;
 public interface IStorage {
     //Crud
     void clear();
-    void save(Resume r);
+    void save(Resume r) throws WebAppException;
     void update(Resume r);
     Resume load(String uuid);
     void delete(String uuid);

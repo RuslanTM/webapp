@@ -22,5 +22,8 @@ public class Main {
         System.out.println(l instanceof Link);
         System.out.println(f.get(l));
         System.out.println(l.getUrl());
+
+
+
     }
 }

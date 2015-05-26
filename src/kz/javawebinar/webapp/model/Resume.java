@@ -73,4 +73,8 @@ public class Resume {
     public List<Section> getSections() {
         return sections;
     }
+
+    public void setHomepage(String homepage) {
+        this.homepage = homepage;
+    }
 }
