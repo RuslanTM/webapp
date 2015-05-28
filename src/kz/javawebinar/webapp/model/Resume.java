@@ -1,14 +1,12 @@
 package kz.javawebinar.webapp.model;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Aser
  * 11.05.2015
  */
-public class Resume {
+public class Resume implements Comparable<Resume>{
     private String uuid;
     private String fullName;
     private String location;
@@ -26,22 +24,6 @@ public class Resume {
         this.fullName = fullName;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Resume resume = (Resume) o;
-
-        return uuid.equals(resume.uuid);
-
-    }
-
-    @Override
-    public int hashCode() {
-        return uuid.hashCode();
-    }
-
     public void addSection(Section section) {
         sections.add(section);
     }
@@ -49,6 +31,17 @@ public class Resume {
         contacts.add(contact);
     }
 
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
 
     public String getUuid() {
         return uuid;
@@ -76,5 +69,33 @@ public class Resume {
 
     public void setHomepage(String homepage) {
         this.homepage = homepage;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(uuid, fullName, location, homepage, contacts, sections);
+    }
+
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        final Resume other = (Resume) obj;
+        return Objects.equals(this.uuid, other.uuid)
+                && Objects.equals(this.fullName, other.fullName)
+                && Objects.equals(this.location, other.location)
+                && Objects.equals(this.homepage, other.homepage)
+                && Objects.equals(this.contacts, other.contacts)
+                && Objects.equals(this.sections, other.sections);
+    }
+
+    @Override
+    public int compareTo(Resume o) {
+        return fullName.compareTo(o.fullName);
     }
 }
