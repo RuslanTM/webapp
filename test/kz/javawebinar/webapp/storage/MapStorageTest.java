@@ -1,7 +1,5 @@
 package kz.javawebinar.webapp.storage;
 
-import java.util.Arrays;
-
 import kz.javawebinar.webapp.WebAppException;
 import kz.javawebinar.webapp.model.Contact;
 import kz.javawebinar.webapp.model.ContactType;
@@ -11,15 +9,18 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import java.util.Arrays;
+import java.util.Map;
+
+import static org.junit.Assert.assertArrayEquals;
 
 /**
  * Aser
- * 20.05.2015
+ * 29.05.2015
  */
-public class ArrayStorageTest extends AbstractStorageTest {
+public class MapStorageTest extends AbstractStorageTest{
     private Resume R1, R2, R3;
-    private ArrayStorage storage = new ArrayStorage();
+    private MapStorage storage = new MapStorage();
 
     static {
     }
@@ -88,7 +89,6 @@ public class ArrayStorageTest extends AbstractStorageTest {
         Resume[] src = new Resume[]{R1, R2, R3};
         Arrays.sort(src);
         assertArrayEquals(src, storage.getAllSorted().toArray());
-
     }
 
     @Test

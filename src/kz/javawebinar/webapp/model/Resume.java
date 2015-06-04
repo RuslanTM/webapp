@@ -7,7 +7,7 @@ import java.util.*;
  * 11.05.2015
  */
 public class Resume implements Comparable<Resume>{
-    private String uuid;
+    private final String uuid;
     private String fullName;
     private String location;
     private String homepage;
@@ -33,10 +33,6 @@ public class Resume implements Comparable<Resume>{
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
-    }
-
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
     }
 
     public void setLocation(String location) {
@@ -71,11 +67,11 @@ public class Resume implements Comparable<Resume>{
         this.homepage = homepage;
     }
 
+
     @Override
     public int hashCode() {
-        return Objects.hash(uuid, fullName, location, homepage, contacts, sections);
+        return uuid.hashCode();
     }
-
 
     @Override
     public boolean equals(Object obj) {
@@ -86,12 +82,7 @@ public class Resume implements Comparable<Resume>{
             return false;
         }
         final Resume other = (Resume) obj;
-        return Objects.equals(this.uuid, other.uuid)
-                && Objects.equals(this.fullName, other.fullName)
-                && Objects.equals(this.location, other.location)
-                && Objects.equals(this.homepage, other.homepage)
-                && Objects.equals(this.contacts, other.contacts)
-                && Objects.equals(this.sections, other.sections);
+        return uuid.equals(other.uuid);
     }
 
     @Override
