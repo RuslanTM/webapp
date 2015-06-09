@@ -10,79 +10,46 @@ import java.util.*;
  * 29.05.2015
  */
 public class MapStorage extends AbstractStorage {
-    Map storage = new HashMap<String, Resume>();
+    Map map = new HashMap<String, Resume>();
+
 
     @Override
-    public void clear() {
-        storage.clear();
+    public void doClear() {
+        map.clear();
     }
 
     @Override
-    public void save(Resume r) throws WebAppException {
-        storage.put(r.getUuid(), r);
+    public boolean exist(String uuid) {
+        return map.containsKey(uuid);
     }
 
     @Override
-    public void update(Resume r) {
-        Resume resume = (Resume) storage.get(r.getUuid());
-        if (resume == null) throw new WebAppException("Resume with uuid=" + r.getUuid() + " is not exist");
-        storage.put(r.getUuid(), r);
+    public void doSave(Resume resume) {
+        map.put(resume.getUuid(), resume);
     }
 
     @Override
-    public Resume load(String uuid) {
-        Resume resume = (Resume) storage.get(uuid);
-        if (resume == null) {
-            throw new WebAppException("Resume with uuid=" + uuid + " is not exist");
-        }
-        return resume;
+    public void doUpdate(Resume resume) {
+        map.put(resume.getUuid(), resume);
     }
 
     @Override
-    public void delete(String uuid) {
-        storage.remove(uuid);
+    public Resume doLoad(String uuid) {
+        return (Resume) map.get(uuid);
     }
 
     @Override
-    public Collection<Resume> getAllSorted() {
-        List mapValues = new ArrayList(storage.values());
-        Collections.sort(mapValues);
-        return mapValues;
+    public void doDelete(String uuid) {
+        map.remove(uuid);
+    }
+
+    @Override
+    public List<Resume> doGetAll() {
+        return new ArrayList<>(map.values());
     }
 
     @Override
     public int size() {
-        return storage.size();
+        return map.size();
     }
-
-    public LinkedHashMap sortHashMapByValues(HashMap passedMap) {
-        List mapKeys = new ArrayList(passedMap.keySet());
-        List mapValues = new ArrayList(passedMap.values());
-        Collections.sort(mapValues);
-        Collections.sort(mapKeys);
-
-        LinkedHashMap sortedMap = new LinkedHashMap();
-
-        Iterator valueIt = mapValues.iterator();
-        while (valueIt.hasNext()) {
-            Object val = valueIt.next();
-            Iterator keyIt = mapKeys.iterator();
-
-            while (keyIt.hasNext()) {
-                Object key = keyIt.next();
-                String comp1 = passedMap.get(key).toString();
-                String comp2 = val.toString();
-
-                if (comp1.equals(comp2)) {
-                    passedMap.remove(key);
-                    mapKeys.remove(key);
-                    sortedMap.put((String) key, (Resume) val);
-                    break;
-                }
-            }
-        }
-        return  sortedMap;
-
-    }
-
 }
