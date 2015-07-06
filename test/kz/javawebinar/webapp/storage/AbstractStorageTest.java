@@ -1,9 +1,7 @@
 package kz.javawebinar.webapp.storage;
 
 
-import com.sun.org.apache.bcel.internal.generic.ISTORE;
 import kz.javawebinar.webapp.WebAppException;
-import kz.javawebinar.webapp.model.Contact;
 import kz.javawebinar.webapp.model.ContactType;
 import kz.javawebinar.webapp.model.Resume;
 import org.junit.Assert;
@@ -20,7 +18,7 @@ import static org.junit.Assert.assertArrayEquals;
  * Aser
  * 29.05.2015
  */
-abstract  public class AbstractStorageTest {
+abstract  public class AbstractStorageTest<C> {
     private Resume R1, R2, R3;
     protected IStorage storage;
 
@@ -34,12 +32,12 @@ abstract  public class AbstractStorageTest {
     @Before
     public void before() {
         R1 = new Resume("Имя1","Место жительства1");
-        R1.addContact(new Contact(ContactType.HOME_PHONE,"252-66-33"));
-        R1.addContact(new Contact(ContactType.SKYPE, "Nalsur-92"));
+        R1.addContact(ContactType.HOME_PHONE,"252-66-33");
+        R1.addContact(ContactType.SKYPE, "Nalsur-92");
 
         R2 = new Resume("Имя2","Место жительства2");
-        R2.addContact(new Contact(ContactType.HOME_PHONE,"252-66-77"));
-        R2.addContact(new Contact(ContactType.SKYPE, "KorolLev"));
+        R2.addContact(ContactType.HOME_PHONE,"252-66-77");
+        R2.addContact(ContactType.SKYPE, "KorolLev");
 
         R3 = new Resume("Имя3",null);
         storage.clear();

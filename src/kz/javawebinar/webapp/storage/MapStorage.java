@@ -1,6 +1,6 @@
 package kz.javawebinar.webapp.storage;
 
-import kz.javawebinar.webapp.WebAppException;
+
 import kz.javawebinar.webapp.model.Resume;
 
 import java.util.*;
@@ -9,42 +9,49 @@ import java.util.*;
  * Aser
  * 29.05.2015
  */
-public class MapStorage extends AbstractStorage {
+public class MapStorage extends AbstractStorage<String> {
     Map map = new HashMap<String, Resume>();
 
 
     @Override
-    public void doClear() {
-        map.clear();
+    protected String getContext(String uuid) {
+        if (map.containsKey(uuid)) {
+            return uuid;
+        }
+        return null;
     }
 
     @Override
+    protected void doClear() {
+        map.clear();
+    }
+
     public boolean exist(String uuid) {
         return map.containsKey(uuid);
     }
 
     @Override
-    public void doSave(Resume resume) {
+    protected void doSave(String ctx, Resume resume) {
         map.put(resume.getUuid(), resume);
     }
 
     @Override
-    public void doUpdate(Resume resume) {
-        map.put(resume.getUuid(), resume);
+    protected void doUpdate(String ctx, Resume r) {
+        map.put(r.getUuid(), r);
     }
 
     @Override
-    public Resume doLoad(String uuid) {
+    protected Resume doLoad(String ctx, String uuid) {
         return (Resume) map.get(uuid);
     }
 
     @Override
-    public void doDelete(String uuid) {
+    protected void doDelete(String ctx, String uuid) {
         map.remove(uuid);
     }
 
     @Override
-    public List<Resume> doGetAll() {
+    protected List<Resume> doGetAll() {
         return new ArrayList<>(map.values());
     }
 
@@ -52,4 +59,5 @@ public class MapStorage extends AbstractStorage {
     public int size() {
         return map.size();
     }
+
 }

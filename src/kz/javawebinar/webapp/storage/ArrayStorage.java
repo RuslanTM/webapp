@@ -16,12 +16,34 @@ import java.util.List;
  * 20.05.2015
  */
 
-public class ArrayStorage extends AbstractStorage {
+public class ArrayStorage extends AbstractStorage<Integer> {
     private static final int LIMIT = 100;
     private Resume[] array = new Resume[LIMIT];
     // protected Logger logger = Logger.getLogger(getClass().getName());
-
+ private int getIndex(String uuid) {
+        for (int i = 0; i<LIMIT; i++) {
+            if (array[i] != null) {
+                if (array[i].getUuid().equals(uuid)) {
+                    return i;
+                }
+            }
+        }
+        return -1;
+    }
     private int size;
+
+
+    @Override
+    protected Integer getContext(String uuid) {
+        for (int i = 0; i<LIMIT; i++) {
+            if (array[i] != null) {
+                if (array[i].getUuid().equals(uuid)) {
+                    return i;
+                }
+            }
+        }
+        return -1;
+    }
 
     @Override
     public void doClear() {
@@ -30,35 +52,28 @@ public class ArrayStorage extends AbstractStorage {
     }
 
     @Override
-    public boolean exist(String uuid) {
-        return getIndex(uuid) != -1;
+    protected boolean exist(Integer idx) {
+        return idx != -1;
     }
 
 
     @Override
-    public void doSave(Resume resume) {
+    protected void doSave(Integer idx, Resume resume) {
         array[size++] = resume;
     }
 
-
     @Override
-    public void doUpdate(Resume r) {
-        int idx = getIndex(r.getUuid());
+    protected void doUpdate(Integer idx, Resume r) {
         array[idx] = r;
     }
 
-
-
     @Override
-    public Resume doLoad(String uuid) {
-        int idx = getIndex(uuid);
+    protected Resume doLoad(Integer idx, String uuid) {
         return array[idx];
     }
 
-
     @Override
-    public void doDelete(String uuid) {
-        int idx = getIndex(uuid);
+    protected void doDelete(Integer idx, String uuid) {
         int numMoved = size - idx - 1;
         if (numMoved > 0)
             System.arraycopy(array, idx+1, array, idx,
@@ -76,16 +91,7 @@ public class ArrayStorage extends AbstractStorage {
       return size;
     }
 
-    private int getIndex(String uuid) {
-        for (int i = 0; i<LIMIT; i++) {
-            if (array[i] != null) {
-                if (array[i].getUuid().equals(uuid)) {
-                    return i;
-                }
-            }
-        }
-        return -1;
-    }
+
 
 
 }
